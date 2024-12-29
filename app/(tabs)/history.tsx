@@ -49,7 +49,9 @@ export default function HistoryScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView className="flex-1 flex-col items-center px-4 gap-10 bg-slate-300">
-        <Text className="text-6xl mt-8">History</Text>
+        <Text className="text-5xl text-center mt-12 text-lime-600">
+          History
+        </Text>
         <View style={styles.container}>
           {Object.keys(history).length > 0 && (
             <FlatList

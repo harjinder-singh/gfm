@@ -1,4 +1,4 @@
-import { Keyboard, Text, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, Text, TouchableWithoutFeedback, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
 import CustomTextInput from "@/components/CustomTextInput";
@@ -62,16 +62,20 @@ export default function AddScreen() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView className="flex-1 flex-col items-center px-4 gap-10 bg-slate-300">
-        <Text className="text-6xl mt-24">Credit funds</Text>
-        <CustomTextInput
-          placeholder={isFocused ? "" : "Enter amount"}
-          onChange={(val: string) => onAmountChange(val)}
-          value={amount === 0 ? "" : amount.toString()}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        ></CustomTextInput>
-        <CustomButton title="Credit" handlePress={handlePress}></CustomButton>
+      <SafeAreaView className="flex-1 flex-col items-center bg-slate-300 px-4">
+        <View className="mt-12 bg-white shadow-md rounded-2xl overflow-hidden gap-8 p-12">
+          <Text className="text-5xl text-center text-lime-600">
+            Credit Funds
+          </Text>
+          <CustomTextInput
+            placeholder={isFocused ? "" : "Enter amount"}
+            onChange={(val: string) => onAmountChange(val)}
+            value={amount === 0 ? "" : amount.toString()}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          ></CustomTextInput>
+          <CustomButton title="Credit" handlePress={handlePress}></CustomButton>
+        </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
