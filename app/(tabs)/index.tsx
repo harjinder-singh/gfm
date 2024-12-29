@@ -42,25 +42,28 @@ export default function HomeScreen() {
   );
   return (
     <SafeAreaView className="flex-1 flex-col items-center bg-slate-300">
-      <View className="p-6 mt-4">
-        <View className="mt-12">
-          <Text className="text-7xl text-center text-lime-600">
+      <Text className="text-5xl mt-24 text-center text-lime-600">
+        Funds Manager
+      </Text>
+      <View className="mt-2">
+        <View className="mt-12 bg-white shadow-md rounded-lg overflow-hidden p-16">
+          <Text className="text-4xl text-center text-lime-600">
             Remaining Funds
           </Text>
-          <Text className="text-7xl mt-8 text-center">${funds}</Text>
+          <Text className="text-6xl mt-8 text-center">${funds}</Text>
         </View>
-        <View className="mt-12">
-          <Text className="text-7xl text-center text-lime-600">
+        <View className="mt-12 bg-white shadow-md rounded-lg overflow-hidden p-16">
+          <Text className="text-4xl text-center text-lime-600">
             Monthly Stats
           </Text>
           <View className="d-flex flex-row gap-12 justify-center">
             <View className="mt-8">
-              <Text className="text-6xl text-center">Credit</Text>
-              <Text className="text-7xl mt-8 text-center">${credit}</Text>
+              <Text className="text-4xl text-center">Credit</Text>
+              <Text className="text-6xl mt-8 text-center">${credit}</Text>
             </View>
             <View className="mt-8">
-              <Text className="text-6xl text-center">Debit</Text>
-              <Text className="text-7xl mt-8 text-center">${debit}</Text>
+              <Text className="text-4xl text-center">Debit</Text>
+              <Text className="text-6xl mt-8 text-center">${debit}</Text>
             </View>
           </View>
         </View>
@@ -68,22 +71,3 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});
