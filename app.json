@@ -44,9 +44,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "61645e0f-dbbb-424d-8f3b-99b740d8bfb2",
-        "owner": "harjindersyt"
+        "projectId": "61645e0f-dbbb-424d-8f3b-99b740d8bfb2"
       }
-    }
+    },
+    "owner": "harjindersyt"
   }
 }
