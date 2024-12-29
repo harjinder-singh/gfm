@@ -51,7 +51,7 @@ export default function TabLayout() {
         options={{
           title: "Credit",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="creditcard.fill" color={color} />
+            <IconSymbol size={28} name="plus.circle.fill" color={color} />
           ),
           tabBarActiveTintColor: "#65a30d",
           tabBarInactiveTintColor: "gray",
@@ -66,7 +66,7 @@ export default function TabLayout() {
         options={{
           title: "Debit",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person" color={color} />
+            <IconSymbol size={28} name="minus.circle.fill" color={color} />
           ),
           tabBarActiveTintColor: "#65a30d",
           tabBarInactiveTintColor: "gray",
@@ -81,7 +81,7 @@ export default function TabLayout() {
         options={{
           title: "History",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="history" color={color} />
+            <IconSymbol size={28} name="calendar" color={color} />
           ),
           tabBarActiveTintColor: "#65a30d",
           tabBarInactiveTintColor: "gray",

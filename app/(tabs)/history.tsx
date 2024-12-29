@@ -1,5 +1,5 @@
 import { getData } from "@/components/Storage";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import {
   Keyboard,
@@ -9,26 +9,39 @@ import {
   TouchableOpacity,
   FlatList,
   View,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { MONTHS } from "@/constants/Common";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 
 export default function HistoryScreen() {
-  const [history, setHistory] = useState([] as string[]);
+  const [history, setHistory] = useState({} as any);
   useFocusEffect(
     useCallback(() => {
       const fetchHistory = async () => {
-        const historyData = await getData("history");
-        setHistory((JSON.parse(historyData as string) as string[]).reverse());
+        const historyData: any = await getData("history");
+        if (historyData) {
+          setHistory(JSON.parse(historyData));
+        }
       };
 
       fetchHistory();
     }, [])
   );
 
-  const renderCard = ({ item }) => (
-    <TouchableOpacity style={styles.card}>
-      <View>
+  const renderCard = ({ item }: { item: string }) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => router.push(`/search/${item}`)}
+    >
+      <View className="d-flex flex-row justify-between items-center">
         <Text style={styles.cardTitle}>{item}</Text>
+        <IconSymbol
+          size={Platform.OS === "ios" ? 16 : 24}
+          name="chevron.forward"
+          color={"black"}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -36,12 +49,12 @@ export default function HistoryScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView className="flex-1 flex-col items-center px-4 gap-10 bg-slate-300">
-        <Text className="text-6xl mt-24">History</Text>
+        <Text className="text-6xl mt-8">History</Text>
         <View style={styles.container}>
-          {history && (
+          {Object.keys(history).length > 0 && (
             <FlatList
-              data={history}
-              keyExtractor={(item, index) => index.toString()}
+              data={Object.keys(history)}
+              keyExtractor={(item: string) => item}
               renderItem={renderCard}
               contentContainerStyle={styles.listContainer}
               showsVerticalScrollIndicator={false}
@@ -56,8 +69,8 @@ export default function HistoryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f9fa",
     padding: 10,
+    width: "100%",
   },
   listContainer: {
     paddingBottom: 20,

@@ -6,10 +6,12 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { getData, saveData } from "@/components/Storage";
 import { router } from "expo-router";
+import uuid from "react-native-uuid";
+import { MONTHS } from "@/constants/Common";
 
 export default function RemoveScreen() {
   const [funds, setFunds] = useState(0);
-  const [history, setHistory] = useState([] as string[]);
+  const [history, setHistory] = useState({} as any);
   const [amount, setAmount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -17,11 +19,11 @@ export default function RemoveScreen() {
     useCallback(() => {
       const fetchAmount = async () => {
         const amount = await getData("funds");
-        const historyData = await getData("history");
+        const historyData: any = await getData("history");
         if (amount) {
           setFunds(parseInt(amount));
         }
-        if (historyData) {
+        if (Object.keys(historyData).length > 0) {
           setHistory(JSON.parse(historyData));
         }
       };
@@ -47,8 +49,21 @@ export default function RemoveScreen() {
     }
     const newAmount = funds - amount;
     await saveData("funds", newAmount.toString());
-    const newHistory: string = `Debited $${amount} on ${new Date().toLocaleString()}`;
-    history.push(newHistory);
+    let date = new Date();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const key = `${MONTHS[month]} ${year}`;
+    const newHistory = {
+      id: uuid.v4(),
+      amount,
+      type: "DEBIT",
+      created_at: date,
+    };
+    if (key in history) {
+      history[key].push(newHistory);
+    } else {
+      history[key] = [newHistory];
+    }
     await saveData("history", JSON.stringify(history));
     setFunds(newAmount);
     setAmount(0);

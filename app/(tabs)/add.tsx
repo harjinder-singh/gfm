@@ -6,10 +6,12 @@ import { getData, saveData } from "../../components/Storage";
 import { useCallback, useState } from "react";
 import { router } from "expo-router";
 import { useFocusEffect } from "@react-navigation/native";
+import uuid from "react-native-uuid";
+import { MONTHS } from "@/constants/Common";
 
 export default function AddScreen() {
   const [funds, setFunds] = useState(0);
-  const [history, setHistory] = useState([] as string[]);
+  const [history, setHistory] = useState({} as any);
   const [amount, setAmount] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -17,11 +19,11 @@ export default function AddScreen() {
     useCallback(() => {
       const fetchAmount = async () => {
         const amount = await getData("funds");
-        const historyData = await getData("history");
+        const historyData: any = await getData("history");
         if (amount) {
           setFunds(parseInt(amount));
         }
-        if (historyData) {
+        if (Object.keys(historyData).length > 0) {
           setHistory(JSON.parse(historyData));
         }
       };
@@ -37,8 +39,21 @@ export default function AddScreen() {
   const handlePress = async () => {
     const totalAmount = funds + amount;
     await saveData("funds", totalAmount.toString());
-    const newHistory: string = `Added $${amount} on ${new Date().toLocaleString()}`;
-    history.push(newHistory);
+    let date = new Date();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const key = `${MONTHS[month]} ${year}`;
+    const newHistory = {
+      id: uuid.v4(),
+      amount,
+      type: "CREDIT",
+      created_at: date,
+    };
+    if (key in history) {
+      history[key].push(newHistory);
+    } else {
+      history[key] = [newHistory];
+    }
     await saveData("history", JSON.stringify(history));
     setFunds(totalAmount);
     setAmount(0);

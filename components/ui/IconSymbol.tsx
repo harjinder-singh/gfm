@@ -10,9 +10,11 @@ const MAPPING = {
   // See MaterialIcons here: https://icons.expo.fyi
   // See SF Symbols in the SF Symbols app on Mac.
   "house.fill": "account-balance",
-  "creditcard.fill": "add-card",
-  person: "person",
-  history: "history",
+  "plus.circle.fill": "add-circle",
+  "minus.circle.fill": "remove-circle",
+  calendar: "calendar-month",
+  "chevron.backward.circle.fill": "arrow-circle-left",
+  "chevron.forward": "chevron-right",
 } as Partial<
   Record<
     import("expo-symbols").SymbolViewProps["name"],

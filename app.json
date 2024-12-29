@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "go-fund-me",
+    "name": "Funds Manager",
     "slug": "go-fund-me",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/dollar.png",
+    "icon": "./assets/images/dollar-android.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -14,7 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/dollar-android.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.gofundme"
