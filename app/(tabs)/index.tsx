@@ -9,6 +9,7 @@ export default function HomeScreen() {
   const [funds, setFunds] = useState(0);
   const [credit, setCredit] = useState(0);
   const [debit, setDebit] = useState(0);
+  const [limit, setLimit] = useState(0);
   useFocusEffect(
     useCallback(() => {
       const fetchAmount = async () => {
@@ -17,10 +18,11 @@ export default function HomeScreen() {
         if (amount) {
           setFunds(parseInt(amount));
         }
+        const date = new Date();
+        const month: number = date.getMonth();
+        const year = date.getFullYear();
+
         if (historyData) {
-          const date = new Date();
-          const month: number = date.getMonth();
-          const year = date.getFullYear();
           const key: string = `${MONTHS[month]} ${year}`;
           const monthlyRecord = JSON.parse(historyData)[key];
           let creditSum = 0;
@@ -36,37 +38,51 @@ export default function HomeScreen() {
           setDebit(debitSum);
           setCredit(creditSum);
         }
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const todaysDate = date.getDate();
+        const daysRemaining = daysInMonth - (todaysDate - 1);
+        if (amount) {
+          setLimit(Math.floor(parseInt(amount) / daysRemaining));
+        } else {
+          setLimit(0);
+        }
       };
 
       fetchAmount();
     }, [])
   );
   return (
-    <SafeAreaView className="flex-1 flex-col items-center bg-slate-300">
+    <SafeAreaView className="flex-1 flex-col gap-6 items-center bg-slate-300">
       <Text className="text-5xl mt-12 text-center text-lime-600">
         Funds Manager
       </Text>
-      <View>
-        <View className="mt-12 bg-white shadow-md rounded-2xl overflow-hidden p-12">
+      <View className="d-flex flex-col gap-6">
+        <View className="d-flex flex-col gap-4 bg-white shadow-md rounded-2xl overflow-hidden p-8">
           <Text className="text-4xl text-center text-lime-600">
             Remaining Funds
           </Text>
-          <Text className="text-5xl mt-8 text-center">${funds}</Text>
+          <Text className="text-4xl text-center">${funds}</Text>
         </View>
-        <View className="mt-12 bg-white shadow-md rounded-2xl overflow-hidden py-12 px-12">
+        <View className="d-flex flex-col gap-4 bg-white shadow-md rounded-2xl overflow-hidden p-8">
           <Text className="text-4xl text-center text-lime-600">
             Monthly Stats
           </Text>
           <View className="d-flex flex-row justify-between">
-            <View className="mt-8">
+            <View className="d-flex flex-col gap-4">
               <Text className="text-4xl text-center">Credit</Text>
-              <Text className="text-4xl mt-8 text-center">${credit}</Text>
+              <Text className="text-4xl text-center">${credit}</Text>
             </View>
-            <View className="mt-8">
+            <View className="d-flex flex-col gap-4">
               <Text className="text-4xl text-center">Debit</Text>
-              <Text className="text-4xl mt-8 text-center">${debit}</Text>
+              <Text className="text-4xl text-center">${debit}</Text>
             </View>
           </View>
+        </View>
+        <View className="d-flex flex-col gap-4 bg-white shadow-md rounded-2xl overflow-hidden p-8">
+          <Text className="text-4xl text-center text-lime-600">
+            Per Day Limit
+          </Text>
+          <Text className="text-4xl text-center">${limit}</Text>
         </View>
       </View>
     </SafeAreaView>

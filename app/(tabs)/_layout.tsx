@@ -47,26 +47,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="add"
+        name="transactions"
         options={{
-          title: "Credit",
+          title: "Transactions",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="plus.circle.fill" color={color} />
-          ),
-          tabBarActiveTintColor: "#65a30d",
-          tabBarInactiveTintColor: "gray",
-          tabBarLabelStyle: {
-            fontSize: 14,
-            fontWeight: "bold",
-          },
-        }}
-      />
-      <Tabs.Screen
-        name="remove"
-        options={{
-          title: "Debit",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="minus.circle.fill" color={color} />
           ),
           tabBarActiveTintColor: "#65a30d",
           tabBarInactiveTintColor: "gray",

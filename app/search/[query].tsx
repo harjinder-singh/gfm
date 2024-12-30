@@ -29,9 +29,12 @@ const Search = () => {
   }, []);
 
   const renderCard = ({ item }: any) => (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      className={item.type === "DEBIT" ? "bg-red-500" : "bg-lime-500"}
+    >
       <View>
-        <Text style={styles.cardTitle}>{`${item.type} $${
+        <Text style={styles.cardTitle} className="text-white">{`${item.type} $${
           item.amount
         } on ${new Date(item.created_at).toLocaleDateString()}`}</Text>
       </View>
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   card: {
-    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
@@ -93,7 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
-    color: "#333",
   },
   cardDescription: {
     fontSize: 14,

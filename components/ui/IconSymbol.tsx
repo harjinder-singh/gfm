@@ -10,7 +10,7 @@ const MAPPING = {
   // See MaterialIcons here: https://icons.expo.fyi
   // See SF Symbols in the SF Symbols app on Mac.
   "house.fill": "account-balance",
-  "plus.circle.fill": "add-circle",
+  "plus.circle.fill": "iso",
   "minus.circle.fill": "remove-circle",
   calendar: "calendar-month",
   "chevron.backward.circle.fill": "arrow-circle-left",
